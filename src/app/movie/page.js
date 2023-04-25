@@ -1,6 +1,7 @@
 import MovieCard from "../components/MovieCard";
 import styles from "../styles/common.module.css";
-const Page = async () => {
+
+const page = async () => {
   const url = process.env.RAPID_URL;
 
   const options = {
@@ -11,16 +12,17 @@ const Page = async () => {
     },
   };
 
-  // await new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     resolve(true);
-  //   }, 2000);
-  // });
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2000);
+  });
   // const res = await fetch(url, options);
   const res = await fetch("http://localhost:3000/sample.json");
   const data = await res.json();
   const main_data = data.titles;
   // console.log(main_data);
+
   return (
     <>
       <section className={styles.movieSection}>
@@ -37,4 +39,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default page;

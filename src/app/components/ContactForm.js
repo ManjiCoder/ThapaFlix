@@ -9,24 +9,48 @@ const mulish = Mulish({
 });
 
 function ContactForm() {
+  const [status, setStatus] = useState(null);
   const [user, setUser] = useState({
     username: "",
     email: "",
     phone: "",
     message: "",
   });
-
+  const { username, email, phone, message } = user;
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser((prevUser) => ({ ...user, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          Content_Type: "application/json",
+        },
+        body: JSON.stringify({ username, email, phone, message }),
+      });
+      console.log({ response });
+      if (response.status === 200) {
+        setStatus("success");
+        setUser({
+          username: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
-    <form className={styles.contact_form}>
+    <form className={styles.contact_form} onSubmit={handleSubmit}>
       <div className={styles.input_field}>
         <label htmlFor="username" className={styles.label}>
           Enter your name:
@@ -86,6 +110,14 @@ function ContactForm() {
         </label>
       </div>
       <div className={styles.input_field}>
+        {status === "success" && (
+          <p className={styles.success_msg}>Thank you for your message.</p>
+        )}
+        {status === "error" && (
+          <p className={styles.error_msg}>
+            There was an error submitting your message. Please try again.
+          </p>
+        )}
         <button type="submit">Submit</button>
       </div>
     </form>
