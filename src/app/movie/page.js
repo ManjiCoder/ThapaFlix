@@ -17,8 +17,8 @@ const page = async () => {
       resolve(true);
     }, 2000);
   });
-  // const res = await fetch(url, options);
-  const res = await fetch("http://localhost:3000/sample.json");
+  const res = await fetch(url, options);
+  // const res = await fetch("http://localhost:3000/sample.json");
   const data = await res.json();
   const main_data = data.titles;
   // console.log(main_data);

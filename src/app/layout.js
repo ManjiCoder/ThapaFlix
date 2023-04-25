@@ -1,7 +1,7 @@
 import "./globals.css";
 import Header from "./components/Header";
-import { Mulish } from "next/font/google";
 import Footer from "./components/Footer";
+import { Mulish } from "next/font/google";
 
 const mulish = Mulish({
   weight: "400",
