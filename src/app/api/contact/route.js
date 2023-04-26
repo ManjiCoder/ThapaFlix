@@ -6,16 +6,26 @@ export async function POST(req, res) {
   try {
     const body = await req.json();
     await dbConnect();
-    await Contact.create(body);
-    return NextResponse.json(
-      { message: "Message sent successfully" },
+    // console.log({ body });
+    const isEmail = await Contact.find({ email: body.email });
+    if (!isEmail) {
+      await Contact.create(body);
+      return new NextResponse.json(
+        { message: "Message sent successfully" },
+        {
+          status: 200,
+        }
+      );
+    }
+    return new NextResponse.json(
+      { message: "User already exists" },
       {
-        status: 200,
+        status: 401,
       }
     );
   } catch (error) {
     console.log(error);
-    return NextResponse(
+    return new NextResponse(
       {
         message: "Server error, please try again!",
       },

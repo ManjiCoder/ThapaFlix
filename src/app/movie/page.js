@@ -2,12 +2,12 @@ import MovieCard from "../components/MovieCard";
 import styles from "../styles/common.module.css";
 
 const page = async () => {
-  const url = process.env.RAPID_URL;
+  const { RAPID_KEY, RAPID_URL } = process.env;
 
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": process.env.RAPID_KEY,
+      "X-RapidAPI-Key": RAPID_KEY,
       "X-RapidAPI-Host": "netflix54.p.rapidapi.com",
     },
   };
@@ -17,7 +17,7 @@ const page = async () => {
       resolve(true);
     }, 2000);
   });
-  const res = await fetch(url, options);
+  const res = await fetch(RAPID_URL, options);
   // const res = await fetch("http://localhost:3000/sample.json");
   const data = await res.json();
   const main_data = data.titles;
@@ -39,4 +39,9 @@ const page = async () => {
   );
 };
 
+export const metadata = {
+  title: "Movie",
+  description:
+    "ThapaFlix is a webapp here you can get all movie/show detail like NetFlix",
+};
 export default page;
