@@ -2,22 +2,22 @@ import MovieCard from "../components/MovieCard";
 import styles from "../styles/common.module.css";
 
 const page = async () => {
-  const { RAPID_KEY, RAPID_URL } = process.env;
+  // const { RAPID_KEY, RAPID_URL } = process.env;
 
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": RAPID_KEY,
+      "X-RapidAPI-Key": process.env.RAPID_KEY,
       "X-RapidAPI-Host": "netflix54.p.rapidapi.com",
     },
   };
 
-  await new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(true);
-    }, 2000);
-  });
-  const res = await fetch(RAPID_URL, options);
+  // await new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve(true);
+  //   }, 2000);
+  // });
+  const res = await fetch(process.env.RAPID_URL, options);
   // const res = await fetch("http://localhost:3000/sample.json");
   const data = await res.json();
   const main_data = data.titles;

@@ -26,14 +26,14 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("api/contact", {
         method: "POST",
         headers: {
-          Content_Type: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, email, phone, message }),
       });
-      console.log({ response });
+      console.log(response);
       if (response.status === 200) {
         setStatus("success");
         setUser({
