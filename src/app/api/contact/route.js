@@ -7,20 +7,12 @@ export async function POST(req, res) {
     const body = await req.json();
     await dbConnect();
     // console.log({ body });
-    const isEmail = await ContactModel.find({ email: body.email });
-    if (isEmail.length === 0) {
-      await ContactModel.create(body);
-      return NextResponse.json(
-        { message: "Message sent successfully" },
-        {
-          status: 200,
-        }
-      );
-    }
+
+    await ContactModel.create(body);
     return NextResponse.json(
-      { message: "User already exists" },
+      { message: "Message sent successfully" },
       {
-        status: 401,
+        status: 200,
       }
     );
   } catch (error) {
